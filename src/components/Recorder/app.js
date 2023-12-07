@@ -5,6 +5,7 @@ var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
 var translang;
+var localUrl;
 
 // shim for AudioContext when it's not avb. 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -116,6 +117,8 @@ export function stopRecording(lang) {
 
 	//create the wav blob and pass it on to createDownloadLink
 	rec.exportWAV(createDownloadLink);
+
+	return localUrl;
 }
 
 function createDownloadLink(blob) {
@@ -124,6 +127,8 @@ function createDownloadLink(blob) {
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
 	var link = document.createElement('a');
+
+	localUrl=url;
 
 	//name of .wav file to use during upload and download (without extendion)
 	var filename = new Date().toISOString();
@@ -153,13 +158,19 @@ function createDownloadLink(blob) {
 	upload.addEventListener("click", function(event){
 		  var xhr=new XMLHttpRequest();
 		  xhr.onload=function(e) {
-		      if(this.readyState === 4) {
-		          console.log("Server returned: ",e.target.responseText);
-		      }
+			console.log(e)
+			if(this.readyState === 4) {
+				console.log("Server returned: ",e.target);
+				var transau = document.createElement('audio');
+				transau.src = JSON.parse(e.target.response).url;
+				transau.controls = true;
+				li.appendChild(transau);
+			}
 		  };
 		  var fd=new FormData();
-		  fd.append("audio_data",blob, filename);
-		  xhr.open("POST","upload.php",true);
+		  fd.append("lang",translang);
+		  fd.append("file",blob, filename);
+		  xhr.open("POST","http://localhost:8804/upload",true);
 		  xhr.send(fd);
 	})
 	li.appendChild(document.createTextNode (" "))//add a space in between

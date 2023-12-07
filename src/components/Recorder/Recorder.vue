@@ -9,8 +9,8 @@ const selectedOption = ref({}) ;
 const options =ref([]);
 
 function stopRecordingWithTrans(){
-    console.log(selectedOption.value.name);
-    stopRecording(selectedOption.value.name);
+  console.log(selectedOption.value.name);
+  stopRecording(selectedOption.value.name);
 }
 
 onMounted(()=>{
@@ -44,6 +44,6 @@ onMounted(()=>{
         <div id="formats">Format: start recording to see sample rate</div>
         <p><strong>Recordings:</strong></p>
         <ol id="recordingsList" ref="recordings"></ol>
-    
+            
 </template>
 
