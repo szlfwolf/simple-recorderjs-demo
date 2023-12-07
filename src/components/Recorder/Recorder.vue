@@ -11,12 +11,6 @@ const options =ref([]);
 function stopRecordingWithTrans(){
     console.log(selectedOption.value.name);
     stopRecording(selectedOption.value.name);
-    // setTimeout(()=>{
-    //     var lastElementChild = document.getElementById("recordingsList").lastElementChild;
-    //     lastElementChild.insertAdjacentText("afterbegin",selectedOption.value.name);
-    //     // lastElementChild.insertAdjacentText("beforeend",selectedOption.value.name);
-    // },100);
-    
 }
 
 onMounted(()=>{

@@ -18,3 +18,10 @@ TBC
 [replicate api](!https://replicate.com/cjwbw/seamless_communication/api?tab=nodejs)
 
 TBC
+
+1. start mock server
+
+    ```bash
+    npm install express --save
+    node src/mock/service.js
+    ```
