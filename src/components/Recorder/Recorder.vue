@@ -15,10 +15,10 @@ function stopRecordingWithTrans(){
 
 onMounted(()=>{
     info.value="demo"
-
+    
     const data = {lang:translang.value};
     axios
-      .post('http://localhost:8804/langOptions', data)
+      .post( 'https://simple-recorder-api.azurewebsites.net/api/langoptions', data)
       .then((response) => {
             options.value = response.data;
             selectedOption.value = options.value[0];

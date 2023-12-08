@@ -22,7 +22,7 @@ if (!process.env.hasOwnProperty('REPLICATE_API_TOKEN')) {
 }
 
 // 
-const replicate = new Replicate({ auth: replicateToken });
+
 
 // https://juejin.cn/post/7214146630466388026
 // const storage = multer.diskStorage({
@@ -37,6 +37,7 @@ const replicate = new Replicate({ auth: replicateToken });
 const upload = multer({ dest: './uploads' })
 
 app.post('/upload', upload.single('file'),function(req, res) {
+    const replicate = new Replicate({ auth: replicateToken });
     console.log(req.body)
     console.log(req.file)
     console.log(req.body.lang)    
@@ -66,7 +67,7 @@ app.post('/service', function(req, res) {
     res.json({ name: "hello from mock server:" + req.body.lang });
 });
 
-app.post('/langOptions', function(req, res) {
+app.post('/api/langoptions', function(req, res) {
     console.log("langOptions request");
     res.json([
         { code: "eng", name: "English" },
